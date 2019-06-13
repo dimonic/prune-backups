@@ -6,3 +6,12 @@ the designated weekday after --weeks.
 
 
 Requires perl-datetime, perl-getopt and perl-doc.
+
+Simply copy this script to some place in your path, and run it against your
+backup directory.
+
+prune-backups.pl /var/backups/*
+
+or run it in help mode for more details
+
+prune-backups.pl --man
