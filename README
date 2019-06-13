@@ -1,0 +1,5 @@
+prune-backups.pl is intended to be run on a directory of backup files that have the date
+embedded in the filenames, in the form yyyy.mm.dd. It implements a "grandfather, father,
+son" stratefy for keeping files. It will delete files older than --years,
+delete all except the 1st monthly file after --months, delete the daily files except 
+the designated weekday after --weeks.
