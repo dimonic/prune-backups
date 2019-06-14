@@ -2,6 +2,7 @@
 use Getopt::Long;
 use DateTime;
 use Pod::Usage;
+use Lingua::EN::Numbers::Ordinate;
 
 my $help = 0;
 my $man = 0;
@@ -38,7 +39,7 @@ foreach my $backup_file (@ARGV) {
 	} elsif ( $now > $filedate + $max_weekly ) {
 		print "File older than ", $max_weekly->months, " months.\n";
 		if ( $filedate->dow() == $weekday_to_keep && $filedate->weekday_of_month() == $week_to_keep ) {
-			print "Keeping $week_to_keep day $weekday_to_keep of month file.\n";
+			print "Keeping ", ordinate($week_to_keep), " day $weekday_to_keep of month file.\n";
 		} else {
 			print "Not first backup of month, deleting $backup_file.\n";
 			unlink $backup_file;
