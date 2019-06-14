@@ -2,7 +2,11 @@
 use Getopt::Long;
 use DateTime;
 use Pod::Usage;
-use Lingua::EN::Numbers::Ordinate;
+
+sub ordinal ($) {
+    $_[0] =~ /(1?\d)$/ or return;
+    return $_[0] . ((qw'th st nd rd')[$1] || 'th');
+}
 
 my $help = 0;
 my $man = 0;
@@ -39,7 +43,7 @@ foreach my $backup_file (@ARGV) {
 	} elsif ( $now > $filedate + $max_weekly ) {
 		print "File older than ", $max_weekly->months, " months.\n";
 		if ( $filedate->dow() == $weekday_to_keep && $filedate->weekday_of_month() == $week_to_keep ) {
-			print "Keeping ", ordinate($week_to_keep), " day $weekday_to_keep of month file.\n";
+			print "Keeping ", ordinal($week_to_keep), " day $weekday_to_keep of month file.\n";
 		} else {
 			print "Not first backup of month, deleting $backup_file.\n";
 			unlink $backup_file;
@@ -121,5 +125,9 @@ weekly and monthly backups.
 
 prune backups will delete any files that age out according to the rules
 you have set.
+
+=head1 DEPENDENCIES
+
+lingua-en-numbers-ordinate, getopt, perl-doc, datetime
 
 =cut
