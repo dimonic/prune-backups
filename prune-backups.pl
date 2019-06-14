@@ -128,6 +128,6 @@ you have set.
 
 =head1 DEPENDENCIES
 
-lingua-en-numbers-ordinate, getopt, perl-doc, datetime
+getopt, perl-doc, datetime
 
 =cut
