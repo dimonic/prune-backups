@@ -16,8 +16,8 @@ GetOptions ('help|?' => \$help,
 			'grandfather|years=i' => \$years,
 			'father|months=i' => \$months,
 			'son|weeks=i' => \$weeks,
-			'day_to_keep=i' => \$weekday_to_keep 
-			'week_to_keep,i' => \$week_to_keep ) or pod2usage(2);
+			'day_to_keep=i' => \$weekday_to_keep,
+			'week_to_keep=i' => \$week_to_keep ) or pod2usage(2);
 pod2usage(1) if $help;
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
