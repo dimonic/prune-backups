@@ -9,13 +9,15 @@ my $years = 2;
 my $months = 2;
 my $weeks = 2;
 my $weekday_to_keep = 6; # monday = 1. saturday
+my $week_to_keep = 1;	# 1 = first weekly
 
 GetOptions ('help|?' => \$help,
 			'man' => \$man,
 			'grandfather|years=i' => \$years,
 			'father|months=i' => \$months,
 			'son|weeks=i' => \$weeks,
-			'day_to_keep=i' => \$weekday_to_keep ) or pod2usage(2);
+			'day_to_keep=i' => \$weekday_to_keep 
+			'week_to_keep,i' => \$week_to_keep ) or pod2usage(2);
 pod2usage(1) if $help;
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
@@ -35,8 +37,8 @@ foreach my $backup_file (@ARGV) {
 		unlink $backup_file;
 	} elsif ( $now > $filedate + $max_weekly ) {
 		print "File older than ", $max_weekly->months, " months.\n";
-		if ( $filedate->dow() == $weekday_to_keep && $filedate->weekday_of_month() == 1 ) {
-			print "Keeping first day $weekday_to_keep of month file.\n";
+		if ( $filedate->dow() == $weekday_to_keep && $filedate->weekday_of_month() == $week_to_keep ) {
+			print "Keeping $week_to_keep day $weekday_to_keep of month file.\n";
 		} else {
 			print "Not first backup of month, deleting $backup_file.\n";
 			unlink $backup_file;
@@ -94,6 +96,10 @@ Number of weeks to keep daily backups. Defaults to 2 weeks.
 
 The number of the weekday (monday=1) to keep for weekly and monthly backups. 
 Defaults to 6 (Saturday)
+
+=item B<--week_to_keep>
+
+Which weekly backup to keep as a monthly backup. Defaults to 1 (1st)
 
 =back
 
